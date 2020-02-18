@@ -1,0 +1,77 @@
+sudo apt update
+
+//ohmyzsh
+
+sudo apt-get install zsh curl git
+
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+
+//to make or del users
+sudo adduser pi4
+sudo adduser pi4 sudo
+sudo userdel -r ubuntu
+
+//Firewall
+sudo apt-get install ufw
+sudo ufw allow ssh
+sudo ufw enable
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+
+
+//APACHE
+sudo apt install apache2
+
+apache2 -version
+
+sudo ufw app list
+
+sudo ufw allow 'Apache'
+
+
+//NVM
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.2/install.sh | zsh
+ //nvm install 6.14.4 # or 10.10.0, 8.9.1, etc
+nvm install node
+
+nvm use node
+
+
+
+//SSH
+ssh-keygen -t rsa
+cat ~/.ssh/id_rsa.pub | ssh demo@198.51.100.0 "mkdir -p ~/.ssh && chmod 700 ~/.ssh && cat >>  ~/.ssh/authorized_keys"
+
+//disable password login
+sudo nano -c /etc/ssh/sshd_config
+
+
+//MISC
+
+//install mongo
+wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+sudo apt-get update
+sudo apt-get install -y mongodb-org
+
+sudo systemctl start mongod
+
+
+//Apache mods
+
+sudo a2enmod
+proxy proxy_ajp proxy_http rewrite deflate headers proxy_balancer proxy_connect proxy_html proxy_wstunnel
+
+
+
+
+a2ensite.....
+
+
+//Lets Encrypt
+sudo apt-get install certbot python-certbot-apache
+sudo certbot --apache
+
+//once apps are running
+pm2 startup
